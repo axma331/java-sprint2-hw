@@ -1,4 +1,4 @@
-# Compiled class file
+## Compiled class file
 *.class
 
 # Log file
@@ -52,3 +52,7 @@ hs_err_pid*
 # mpeltonen/sbt-idea plugin
 .idea_modules/
 
+# plagin for csv-files
+.idea/csv-plugin.xml
+
+.idea/codeStyles/
