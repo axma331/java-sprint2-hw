@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class MonthlyReport {
-    public ArrayList<Data> data = new ArrayList<>();
+    public ArrayList<Expense> data = new ArrayList<>();
 
     /**
      * Вложенный класс с данными отчета <br><br>
@@ -10,7 +10,7 @@ public class MonthlyReport {
      * sumOfOne - Стоимость одной единицы товара. Целое число <br>
      * isExpense - Обозначает, является ли запись тратой (TRUE) или доходом (FALSE) <br>
      */
-    static class Data {
+    static class Expense {
         private String itemName;
         private int quantity;
         private int sumOfOne;
@@ -19,7 +19,7 @@ public class MonthlyReport {
         /**
          * @param dataArray массив данных полученный из файла отчета
          */
-        public Data(String[] dataArray) {
+        Expense(String[] dataArray) {
             this.itemName = dataArray[0];
             this.quantity = Integer.parseInt(dataArray[2]);
             this.sumOfOne = Integer.parseInt(dataArray[3]);

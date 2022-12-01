@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class YearlyReport {
-    public ArrayList<Data> data = new ArrayList<>();
+    public ArrayList<Expense> data = new ArrayList<>();
 
     /**
      * Вложенный класс с данными отчета <br><br>
@@ -9,7 +9,7 @@ public class YearlyReport {
      * amount сумма за год <br>
      * is_expense обозначает, является ли запись тратой (TRUE) или доходом (FALSE) <br>
      */
-    static class Data {
+    static class Expense {
         private int month;
         private int amount;
         private boolean isExpense;
@@ -17,7 +17,7 @@ public class YearlyReport {
         /**
          * @param dataArray массив данных полученный из файла отчета
          */
-        Data(String[] dataArray) {
+        Expense(String[] dataArray) {
             this.month = Integer.parseInt(dataArray[0]);
             this.amount = Integer.parseInt(dataArray[1]);
             this.isExpense = Boolean.parseBoolean(dataArray[2]);

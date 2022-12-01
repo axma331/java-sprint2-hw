@@ -1,13 +1,15 @@
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
-        ProcessingOfDataFiles resources = new ProcessingOfDataFiles("resources");
-        resources.listFilesForFolder();
+        ArrayList<YearlyReport> year = new ArrayList();
+        ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
+        year = (ArrayList<YearlyReport>) resources.readAndSaveContentFromFile(Report.YEAR);
 
-        System.out.println("The end!");
+        System.out.println(year + "The end!");
 
 
 //        while (true) {

@@ -1,69 +1,82 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProcessingOfDataFiles {
-    private final File folder;
-    ArrayList<YearlyReport> listOfYearlyReports;
-    ArrayList<MonthlyReport> listOfMonthlyReports;
+public class ProcessingOfDataFiles implements Report {
 
-    public ProcessingOfDataFiles(String pathname) {
-        folder = new File(pathname);
-        listOfYearlyReports = new ArrayList<>();
-        listOfMonthlyReports = new ArrayList<>();
+    private File[] getArrayOfReportFiles() {
+        final File folder = new File(FOLDER_PATH);
+        File[] files = folder.listFiles();
+        if (files == null) {
+            System.out.println("В папке с отчета отсутствуют файлы!\nСчитывание данных невозможно!");
+            throw new IllegalArgumentException();
+        }
+        return files;
     }
 
-    public void listFilesForFolder() throws IOException {
-        File[] files = this.folder.listFiles();
-        if (files == null) {
-            return;
-        }
-        for (File fileWithContents : files) {
-            List<String> listContents = Files.readAllLines(Path.of(fileWithContents.toString()));
-            if (isMonthlyReportFile(fileWithContents.getName())) {
-                listOfMonthlyReports.add(savingMonthlyReportDataFromFile(listContents));
-            } else if (isYearlyReportFile(fileWithContents.getName())) {
-                listOfYearlyReports.add(savingYearlyReportDataFromFile(listContents));
-            } else {
-                System.out.println("Имя файла: " + fileWithContents.getName()
-                        + " не соответствует шаблону именования сохраненных отчётов!");
+    public Object readAndSaveContentFromFile(String time) throws IOException {
+        ArrayList<MonthlyReport> listOfMonthlyReports = null;
+        ArrayList<YearlyReport> listOfYearlyReports = null;
+
+        for (File file : getArrayOfReportFiles()) {
+            if (!isMatchesNamesTemplate(file)) {
+                continue;
+            }
+            if (time.equals(MONTH) && isMonthlyReportFile(file.getName())) {
+                if (listOfMonthlyReports == null) {
+                    listOfMonthlyReports = new ArrayList<>();
+                }
+                listOfMonthlyReports.add(saveListOfMonthlyExpenses(Files.readAllLines(file.toPath())));
+            }
+            if (time.equals(YEAR) && isYearlyReportFile(file.getName())) {
+                if (listOfYearlyReports == null) {
+                    listOfYearlyReports = new ArrayList<>();
+                }
+                listOfYearlyReports.add(saveListOfYearlyExpenses(Files.readAllLines(file.toPath())));
             }
         }
-//		} catch (Throwable e) {
-//			System.out.println("Невозможно прочитать файл с отчётом.");
-//		}
+        if (listOfMonthlyReports == null && listOfYearlyReports == null) {
+            System.out.println("Не найдено ни одного допустимого файла с отчетом!");
+        }
+        return time.equals(MONTH) ? listOfMonthlyReports : listOfYearlyReports;
     }
 
-    private MonthlyReport savingMonthlyReportDataFromFile(List<String> listContents) {
+    private MonthlyReport saveListOfMonthlyExpenses(List<String> listContents) {
         MonthlyReport monthlyReport = new MonthlyReport();
         for (String commaSeparatedStr : listContents.subList(1, listContents.size())) {
-//            System.out.println(commaSeparatedStr);
             String[] splitStr = commaSeparatedStr.split(",");
-            monthlyReport.data.add(new MonthlyReport.Data(splitStr));
+            monthlyReport.data.add(new MonthlyReport.Expense(splitStr));
         }
         return monthlyReport;
     }
 
-    private YearlyReport savingYearlyReportDataFromFile(List<String> listContents) {
+    private YearlyReport saveListOfYearlyExpenses(List<String> listContents) {
         YearlyReport yearlyReport = new YearlyReport();
         for (String commaSeparatedStr : listContents.subList(1, listContents.size())) {
-//            System.out.println(commaSeparatedStr);
             String[] splitStr = commaSeparatedStr.split(",");
-            yearlyReport.data.add(new YearlyReport.Data(splitStr));
+            yearlyReport.data.add(new YearlyReport.Expense(splitStr));
         }
         return yearlyReport;
+    }
+
+    private boolean isMatchesNamesTemplate(File file) {
+        if (!(isMonthlyReportFile(file.getName()) || isYearlyReportFile(file.getName()))) {
+            System.out.println("Имя файла: " + file.getName()
+                    + " не соответствует шаблону именования сохраненных отчётов!");
+            return false;
+        }
+        return true;
     }
 
     public boolean isMonthlyReportFile(String fileName) {
         String[] checkName = fileName.split("[.]");
         if (checkName.length == 3
                 && "m".equals(checkName[0])
-                && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 6 //Проверку на соответствие года сделать бы в идеале
+                && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 6
                 && "csv".equals(checkName[2])) {
-            return true;            //Видимо все же надо будет сохранять информацию о годе и месяце отчета для сверки с годовым!
+            return true;
         }
         return false;
     }
@@ -72,7 +85,7 @@ public class ProcessingOfDataFiles {
         String[] checkName = fileName.split("[.]");
         if (checkName.length == 3
                 && "y".equals(checkName[0])
-                && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 4 //Проверку на соответствие года сделать бы в идеале
+                && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 4
                 && "csv".equals(checkName[2])) {
             return true;
         }
