@@ -3,11 +3,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
-        List<Report> month =  resources.readAndSaveContentFromFile(Const.MONTH);
-        List<Report> year = resources.readAndSaveContentFromFile(Const.YEAR);
+        try {
+            List<Report> month = resources.readAndSaveContentFromFile(Const.MONTH);
+            List<Report> year = resources.readAndSaveContentFromFile(Const.YEAR);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Отсутствуют файлы соответствующие шаблону именования отчётов!");
+            return;
+        } catch (IOException e) {
+            System.err.println("Невозможно прочитать файл с месячным отчётом!");
+            return;
+        }
 
         Scanner scanner = new Scanner(System.in);
         int userInput;
