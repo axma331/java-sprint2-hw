@@ -16,26 +16,26 @@ public class ProcessingOfDataFiles implements Report {
         return files;
     }
 
+
     public Object readAndSaveContentFromFile(String time) throws IOException {
         ArrayList<MonthlyReport> listOfMonthlyReports = null;
         ArrayList<YearlyReport> listOfYearlyReports = null;
 
         for (File file : getArrayOfReportFiles()) {
-            if (!isMatchesNamesTemplate(file)) {
-                continue;
-            }
             if (time.equals(MONTH) && isMonthlyReportFile(file.getName())) {
                 if (listOfMonthlyReports == null) {
                     listOfMonthlyReports = new ArrayList<>();
                 }
-                listOfMonthlyReports.add(saveListOfMonthlyExpenses(Files.readAllLines(file.toPath())));
+
+                listOfMonthlyReports.add(saveListOfMonthlyExpenses(file));
             }
             if (time.equals(YEAR) && isYearlyReportFile(file.getName())) {
                 if (listOfYearlyReports == null) {
                     listOfYearlyReports = new ArrayList<>();
                 }
-                listOfYearlyReports.add(saveListOfYearlyExpenses(Files.readAllLines(file.toPath())));
+                listOfYearlyReports.add(saveListOfYearlyExpenses(file));
             }
+            isMatchesNamesTemplate(file);
         }
         if (listOfMonthlyReports == null && listOfYearlyReports == null) {
             System.out.println("Не найдено ни одного допустимого файла с отчетом!");
@@ -43,8 +43,11 @@ public class ProcessingOfDataFiles implements Report {
         return time.equals(MONTH) ? listOfMonthlyReports : listOfYearlyReports;
     }
 
-    private MonthlyReport saveListOfMonthlyExpenses(List<String> listContents) {
-        MonthlyReport monthlyReport = new MonthlyReport();
+    private MonthlyReport saveListOfMonthlyExpenses(File file) throws IOException {
+        int year = Integer.parseInt(file.getName().substring(2, 6));
+        int month = Integer.parseInt(file.getName().substring(7, 8));
+        List<String> listContents = Files.readAllLines(file.toPath());
+        MonthlyReport monthlyReport = new MonthlyReport(year, month);
         for (String commaSeparatedStr : listContents.subList(1, listContents.size())) {
             String[] splitStr = commaSeparatedStr.split(",");
             monthlyReport.data.add(new MonthlyReport.Expense(splitStr));
@@ -52,8 +55,10 @@ public class ProcessingOfDataFiles implements Report {
         return monthlyReport;
     }
 
-    private YearlyReport saveListOfYearlyExpenses(List<String> listContents) {
-        YearlyReport yearlyReport = new YearlyReport();
+    private YearlyReport saveListOfYearlyExpenses(File file) throws IOException {
+        int year = Integer.parseInt(file.getName().substring(2, 6));
+        List<String> listContents = Files.readAllLines(file.toPath());
+        YearlyReport yearlyReport = new YearlyReport(year);
         for (String commaSeparatedStr : listContents.subList(1, listContents.size())) {
             String[] splitStr = commaSeparatedStr.split(",");
             yearlyReport.data.add(new YearlyReport.Expense(splitStr));
@@ -73,7 +78,7 @@ public class ProcessingOfDataFiles implements Report {
     public boolean isMonthlyReportFile(String fileName) {
         String[] checkName = fileName.split("[.]");
         if (checkName.length == 3
-                && "m".equals(checkName[0])
+                && MONTH.equals(checkName[0])
                 && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 6
                 && "csv".equals(checkName[2])) {
             return true;
@@ -84,7 +89,7 @@ public class ProcessingOfDataFiles implements Report {
     private boolean isYearlyReportFile(String fileName) {
         String[] checkName = fileName.split("[.]");
         if (checkName.length == 3
-                && "y".equals(checkName[0])
+                && YEAR.equals(checkName[0])
                 && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 4
                 && "csv".equals(checkName[2])) {
             return true;

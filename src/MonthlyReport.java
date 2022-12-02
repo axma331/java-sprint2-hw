@@ -1,7 +1,22 @@
 import java.util.ArrayList;
 
 public class MonthlyReport {
-    public ArrayList<Expense> data = new ArrayList<>();
+    ArrayList<Expense> data = new ArrayList<>();
+    private final int year;
+    private final int month;
+
+    public MonthlyReport(int year, int month) {
+        this.year = year;
+        this.month = month;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getYear() {
+        return year;
+    }
 
     /**
      * Вложенный класс с данными отчета <br><br>

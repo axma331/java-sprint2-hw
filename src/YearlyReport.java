@@ -1,7 +1,17 @@
 import java.util.ArrayList;
 
 public class YearlyReport {
-    public ArrayList<Expense> data = new ArrayList<>();
+    ArrayList<Expense> data = new ArrayList<>();
+    private int year;
+
+    public YearlyReport(int year) {
+        this.year = year;
+    }
+
+
+    public int getYear() {
+        return year;
+    }
 
     /**
      * Вложенный класс с данными отчета <br><br>
