@@ -1,36 +1,32 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class YearlyReport {
-    ArrayList<Expense> data = new ArrayList<>();
-    private int year;
+public class YearlyReport extends Report {
+    List<Expense> data = new ArrayList<>();
 
     public YearlyReport(int year) {
-        this.year = year;
+        super(year);
     }
-
 
     public int getYear() {
         return year;
     }
 
-    /**
-     * Вложенный класс с данными отчета <br><br>
-     * month месяц <br>
-     * amount сумма за год <br>
-     * is_expense обозначает, является ли запись тратой (TRUE) или доходом (FALSE) <br>
-     */
     static class Expense {
-        private int month;
-        private int amount;
-        private boolean isExpense;
+        private final int month;
+        private final int amount;
+        private final boolean isExpense;
 
         /**
-         * @param dataArray массив данных полученный из файла отчета
+         * Вложенный класс для хранения данных из отчета о движении денежных средств
+         * @param month месяц
+         * @param amount сумма за год
+         * @param isExpense обозначает, является ли запись тратой (TRUE) или доходом (FALSE)
          */
-        Expense(String[] dataArray) {
-            this.month = Integer.parseInt(dataArray[0]);
-            this.amount = Integer.parseInt(dataArray[1]);
-            this.isExpense = Boolean.parseBoolean(dataArray[2]);
+        Expense(int month, int amount, boolean isExpense) {
+            this.month = month;
+            this.amount = amount;
+            this.isExpense = isExpense;
         }
 
         public int getMonth() {

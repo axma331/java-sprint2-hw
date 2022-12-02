@@ -1,12 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
 
-public class MonthlyReport {
-    ArrayList<Expense> data = new ArrayList<>();
-    private final int year;
+public class MonthlyReport extends Report {
+    List<Expense> data = new ArrayList<>();
     private final int month;
 
     public MonthlyReport(int year, int month) {
-        this.year = year;
+        super(year);
         this.month = month;
     }
 
@@ -18,27 +18,26 @@ public class MonthlyReport {
         return year;
     }
 
-    /**
-     * Вложенный класс с данными отчета <br><br>
-     * itemName - Название товара <br>
-     * quantity - Количество закупленного или проданного товара <br>
-     * sumOfOne - Стоимость одной единицы товара. Целое число <br>
-     * isExpense - Обозначает, является ли запись тратой (TRUE) или доходом (FALSE) <br>
-     */
+
     static class Expense {
-        private String itemName;
-        private int quantity;
-        private int sumOfOne;
-        protected boolean isExpense;
+        private final String itemName;
+        private final int quantity;
+        private final int sumOfOne;
+        private final boolean isExpense;
 
         /**
-         * @param dataArray массив данных полученный из файла отчета
+         * Вложенный класс для хранения данных из отчета о движении денежных средств
+         *
+         * @param itemName  Название товара
+         * @param quantity  Количество закупленного или проданного товара
+         * @param sumOfOne  Стоимость одной единицы товара. Целое число
+         * @param isExpense Обозначает, является ли запись тратой (TRUE) или доходом (FALSE)
          */
-        Expense(String[] dataArray) {
-            this.itemName = dataArray[0];
-            this.quantity = Integer.parseInt(dataArray[2]);
-            this.sumOfOne = Integer.parseInt(dataArray[3]);
-            this.isExpense = Boolean.parseBoolean(dataArray[1]);
+        Expense(String itemName, int quantity, int sumOfOne, boolean isExpense) {
+            this.itemName = itemName;
+            this.quantity = quantity;
+            this.sumOfOne = sumOfOne;
+            this.isExpense = isExpense;
         }
 
         public String getItemName() {

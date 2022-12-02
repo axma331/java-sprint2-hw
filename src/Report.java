@@ -1,6 +1,10 @@
-public interface Report {
-    static final String FOLDER_PATH = "resources";
-    static final String MONTH = "m";
-    static final String YEAR = "y";
+/**
+ * Обобщающий интерфейс отчетов
+ */
+public abstract class Report {
+    protected final int year;
 
+    protected Report(int year) {
+        this.year = year;
+    }
 }

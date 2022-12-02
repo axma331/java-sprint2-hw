@@ -1,13 +1,13 @@
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
 
         ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
-        ArrayList<MonthlyReport> month = (ArrayList<MonthlyReport>) resources.readAndSaveContentFromFile(Report.MONTH);
-        ArrayList<YearlyReport> year = (ArrayList<YearlyReport>) resources.readAndSaveContentFromFile(Report.YEAR);
+        List<Report> month =  resources.readAndSaveContentFromFile(Const.MONTH);
+        List<Report> year = resources.readAndSaveContentFromFile(Const.YEAR);
 
         Scanner scanner = new Scanner(System.in);
         int userInput;
