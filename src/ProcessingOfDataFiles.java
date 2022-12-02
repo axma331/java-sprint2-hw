@@ -58,7 +58,7 @@ public class ProcessingOfDataFiles {
         MonthlyReport report = new MonthlyReport(year, month);
         for (String commaSeparatedStr : contents.subList(1, contents.size())) {
             String[] splitStr = commaSeparatedStr.split(",");
-            report.data.add(new MonthlyReport.Expense(
+            report.expenses.add(new MonthlyReport.Expense(
                     splitStr[0],
                     Integer.parseInt(splitStr[2]),
                     Integer.parseInt(splitStr[3]),
@@ -74,7 +74,7 @@ public class ProcessingOfDataFiles {
         YearlyReport report = new YearlyReport(year);
         for (String commaSeparatedStr : contents.subList(1, contents.size())) {
             String[] splitStr = commaSeparatedStr.split(",");
-            report.data.add(new YearlyReport.Expense(
+            report.expenses.add(new YearlyReport.Expense(
                     Integer.parseInt(splitStr[0]),
                     Integer.parseInt(splitStr[1]),
                     Boolean.parseBoolean(splitStr[2])

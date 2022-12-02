@@ -1,10 +1,13 @@
 /**
  * Обобщающий интерфейс отчетов
  */
-public abstract class Report {
-    protected final int year;
+public interface Report {
 
-    protected Report(int year) {
-        this.year = year;
-    }
+    int minExpense();
+    int maxExpense();
+    double avgExpense();
+    int minIncome();
+    int maxIncome();
+    double avgIncome();
+
 }

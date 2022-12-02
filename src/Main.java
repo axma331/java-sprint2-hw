@@ -7,45 +7,44 @@ public class Main {
 
         ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
         try {
-            List<Report> month = resources.readAndSaveContentFromFile(Const.MONTH);
-            List<Report> year = resources.readAndSaveContentFromFile(Const.YEAR);
+            List<Report> month = null;
+            List<Report> year = null;
+
+            Scanner scanner = new Scanner(System.in);
+            int userInput;
+            do {
+                printMenuAndReturnUserSolution();
+                userInput = scanner.nextInt();
+                switch (userInput) {
+                    case 1:
+                        month = resources.readAndSaveContentFromFile(Const.MONTH);
+                        break;
+                    case 2:
+                        year = resources.readAndSaveContentFromFile(Const.YEAR);
+                        break;
+                    case 3:
+                        System.out.println(3);
+                        break;
+                    case 4:
+                        System.out.println(4);
+                        break;
+                    case 5:
+                        System.out.println(5);
+                        break;
+                    case 0:
+                        System.out.println("До новых встреч!");
+                        scanner.close();
+                        break;
+                    default:
+                        System.out.println("Действие отсутствует в списке!");
+                }
+            } while (userInput != 0);
         } catch (IllegalArgumentException e) {
             System.err.println("Отсутствуют файлы соответствующие шаблону именования отчётов!");
-            return;
         } catch (IOException e) {
             System.err.println("Невозможно прочитать файл с месячным отчётом!");
-            return;
         }
 
-        Scanner scanner = new Scanner(System.in);
-        int userInput;
-        do {
-            printMenuAndReturnUserSolution();
-            userInput = scanner.nextInt();
-            switch (userInput) {
-                case 1:
-                    System.out.println(1);
-                    break;
-                case 2:
-                    System.out.println(2);
-                    break;
-                case 3:
-                    System.out.println(3);
-                    break;
-                case 4:
-                    System.out.println(4);
-                    break;
-                case 5:
-                    System.out.println(5);
-                    break;
-                case 0:
-                    System.out.println("До новых встреч!");
-                    scanner.close();
-                    break;
-                default:
-                    System.out.println("Действие отсутствует в списке!");
-            }
-        } while (userInput != 0);
     }
 
     /*

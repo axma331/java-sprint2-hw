@@ -1,12 +1,13 @@
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonthlyReport extends Report {
-    List<Expense> data = new ArrayList<>();
+public class MonthlyReport implements Report {
+    List<Expense> expenses = new ArrayList<>();
+    private final int year;
     private final int month;
 
     public MonthlyReport(int year, int month) {
-        super(year);
+        this.year = year;
         this.month = month;
     }
 
@@ -18,6 +19,73 @@ public class MonthlyReport extends Report {
         return year;
     }
 
+    @Override
+    public int minExpense() {
+        int min = 0;
+        for (Expense expense : expenses) {
+            if (min > expense.cost() && expense.isExpense) {
+                min = expense.cost();
+            }
+        }
+        return min;
+    }
+
+    @Override
+    public int minIncome() {
+        int min = 0;
+        for (Expense expense : expenses) {
+            if (min > expense.cost() && !expense.isExpense) {
+                min = expense.cost();
+            }
+        }
+        return min;
+    }
+
+    @Override
+    public int maxExpense() {
+        int max = 0;
+        for (Expense expense : expenses) {
+            if (max < expense.cost() && expense.isExpense) {
+                max = expense.cost();
+            }
+        }
+        return max;
+    }
+
+    @Override
+    public int maxIncome() {
+        int max = 0;
+        for (Expense expense : expenses) {
+            if (max < expense.cost() && !expense.isExpense) {
+                max = expense.cost();
+            }
+        }
+        return max;
+    }
+
+    @Override
+    public double avgExpense() {
+        int avg = 0, cnt = 0;
+        for (Expense expense : expenses) {
+            if (expense.isExpense) {
+                avg += expense.cost();
+                ++cnt;
+            }
+        }
+        return (double) avg / cnt;
+    }
+
+    @Override
+    public double avgIncome() {
+        int avg = 0, cnt = 0;
+        for (Expense expense : expenses) {
+            if (!expense.isExpense) {
+                avg += expense.cost();
+                ++cnt;
+            }
+        }
+        return (double) avg / cnt;
+    }
 
     static class Expense {
         private final String itemName;
@@ -54,6 +122,10 @@ public class MonthlyReport extends Report {
 
         public boolean isExpense() {
             return isExpense;
+        }
+
+        public int cost() {
+            return quantity * sumOfOne;
         }
     }
 }
