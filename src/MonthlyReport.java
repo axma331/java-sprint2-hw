@@ -87,6 +87,13 @@ public class MonthlyReport implements Report {
         return (double) avg / cnt;
     }
 
+    @Override
+    public String toString() {
+        return "Ежемесячный отчет за " +
+               month + "." + year +
+                "\n " + expenses;
+    }
+
     static class Expense {
         private final String itemName;
         private final int quantity;
@@ -126,6 +133,15 @@ public class MonthlyReport implements Report {
 
         public int cost() {
             return quantity * sumOfOne;
+        }
+
+        @Override
+        public String toString() {
+            return itemName +
+                    "| " + quantity +
+                    "| " + sumOfOne +
+                    "| " + isExpense +
+                    "\n";
         }
     }
 }

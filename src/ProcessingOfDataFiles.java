@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Обработка содержимого файлов
@@ -11,13 +12,12 @@ public class ProcessingOfDataFiles {
 
     /**
      * Получение содержимого директории FOLDER_PATH
-     *
      * @return массив файлы для обработки
      */
-    private File[] getArrayOfReportFiles() {
+    private File[] getArrayOfReportFiles() throws NullPointerException {
         File[] files = new File(Const.FOLDER_PATH).listFiles();
         int cnt = 0;
-        for (File file : files) {
+        for (File file : Objects.requireNonNull(files)) {
             if (isMatchesNamesTemplate(file)) {
                 ++cnt;
             }

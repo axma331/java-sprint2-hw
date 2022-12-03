@@ -7,8 +7,8 @@ public class Main {
 
         ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
         try {
-            List<Report> month = null;
-            List<Report> year = null;
+            List<Report> monthlyReport = null;
+            List<Report> yearlyReport = null;
 
             Scanner scanner = new Scanner(System.in);
             int userInput;
@@ -17,19 +17,19 @@ public class Main {
                 userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
-                        month = resources.readAndSaveContentFromFile(Const.MONTH);
+                        monthlyReport = resources.readAndSaveContentFromFile(Const.MONTH);
                         break;
                     case 2:
-                        year = resources.readAndSaveContentFromFile(Const.YEAR);
+                        yearlyReport = resources.readAndSaveContentFromFile(Const.YEAR);
                         break;
                     case 3:
                         System.out.println(3);
                         break;
                     case 4:
-                        System.out.println(4);
+                        System.out.println(monthlyReport);
                         break;
                     case 5:
-                        System.out.println(5);
+                        System.out.println(yearlyReport);
                         break;
                     case 0:
                         System.out.println("До новых встреч!");
