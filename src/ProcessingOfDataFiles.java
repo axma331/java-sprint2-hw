@@ -11,11 +11,13 @@ public class ProcessingOfDataFiles {
 
     /**
      * Получение содержимого директории FOLDER_PATH
-     *
      * @return массив файлы для обработки
      */
-    private File[] getArrayOfReportFiles() {
+    private File[] getArrayOfReportFiles() throws NullPointerException {
         File[] files = new File(Const.FOLDER_PATH).listFiles();
+        if (files == null) {
+            throw new IllegalArgumentException();
+        }
         int cnt = 0;
         for (File file : files) {
             if (isMatchesNamesTemplate(file)) {

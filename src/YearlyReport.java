@@ -81,6 +81,12 @@ public class YearlyReport implements Report {
         return (double) avg / cnt;
     }
 
+    @Override
+    public String toString() {
+        return "Ежегодный отчет за " +
+                year + "\n " + expenses;
+    }
+
     static class Expense {
         private final int month;
         private final int amount;
@@ -109,6 +115,14 @@ public class YearlyReport implements Report {
 
         public boolean isExpense() {
             return isExpense;
+        }
+
+        @Override
+        public String toString() {
+            return  month +
+                    "| " + amount +
+                    "| " + isExpense +
+                    "\n";
         }
     }
 }
