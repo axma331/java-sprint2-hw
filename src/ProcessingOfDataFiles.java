@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Обработка содержимого файлов
@@ -19,7 +20,7 @@ public class ProcessingOfDataFiles {
             throw new IllegalArgumentException();
         }
         int cnt = 0;
-        for (File file : files) {
+        for (File file : Objects.requireNonNull(files)) {
             if (isMatchesNamesTemplate(file)) {
                 ++cnt;
             }
