@@ -24,6 +24,7 @@ public class Main {
                         break;
                     case 3:
                         System.out.println(3);
+//                        Comparison.convertToMap(yearlyReport);
                         break;
                     case 4:
                         System.out.println(monthlyReport);

@@ -87,10 +87,10 @@ public class YearlyReport implements Report {
                 year + "\n " + expenses;
     }
 
-    static class Expense {
-        private final int month;
-        private final int amount;
-        private final boolean isExpense;
+    static public class Expense {
+        final int month;
+        final int amount;
+        final boolean isExpense;
 
         /**
          * Вложенный класс для хранения данных из отчета о движении денежных средств
@@ -105,17 +105,17 @@ public class YearlyReport implements Report {
             this.isExpense = isExpense;
         }
 
-        public int getMonth() {
-            return month;
-        }
-
-        public int getAmount() {
-            return amount;
-        }
-
-        public boolean isExpense() {
-            return isExpense;
-        }
+//        public int getMonth() {
+//            return month;
+//        }
+//
+//        public int getAmount() {
+//            return amount;
+//        }
+//
+//        public boolean isExpense() {
+//            return isExpense;
+//        }
 
         @Override
         public String toString() {

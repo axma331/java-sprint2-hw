@@ -9,5 +9,4 @@ public interface Report {
     int minIncome();
     int maxIncome();
     double avgIncome();
-
 }

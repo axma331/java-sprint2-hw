@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -51,6 +52,7 @@ public class ProcessingOfDataFiles {
         if (listOfReports.isEmpty()) {
             System.err.println("В файлах отсутствуют данные по отчетам!");
         }
+
         return listOfReports;
     }
 
@@ -68,6 +70,8 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitStr[1]))
             );
         }
+        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
+        System.out.println(m);
         return report;
     }
 
@@ -83,6 +87,8 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitStr[2])
             ));
         }
+        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
+        System.out.println(m);
         return report;
     }
 
@@ -90,7 +96,7 @@ public class ProcessingOfDataFiles {
         return !(isMonthlyReportFile(file.getName()) || isYearlyReportFile(file.getName()));
     }
 
-    public boolean isMonthlyReportFile(String fileName) {
+    private boolean isMonthlyReportFile(String fileName) {
         String[] checkName = fileName.split("[.]");
         return (checkName.length == 3
                 && Const.MONTH.equals(checkName[0])
