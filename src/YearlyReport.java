@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class YearlyReport implements Report {
     List<Expense> expenses = new ArrayList<>();
@@ -84,7 +86,22 @@ public class YearlyReport implements Report {
     @Override
     public String toString() {
         return "Ежегодный отчет за " +
-                year + "\n " + expenses;
+                year + "\n " + expenses +
+                "Самый прибыльный товар :" + maxIncomeItem();
+    }
+
+    Map<Integer, Integer> maxIncomeItem() throws NullPointerException {
+        int maxIncome = 0;
+        Integer maxItemName = null;
+        for (YearlyReport.Expense expense : expenses) {
+            if (expense.isExpense) {
+                if (expense.amount > maxIncome) {
+                    maxIncome = expense.amount;
+                    maxItemName = expense.month;
+                }
+            }
+        }
+        return Map.of(Objects.requireNonNull(maxItemName), maxIncome);
     }
 
     static public class Expense {

@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MonthlyReport implements Report {
     List<Expense> expenses = new ArrayList<>();
@@ -79,11 +80,26 @@ public class MonthlyReport implements Report {
         return (double) avg / cnt;
     }
 
+    Map<String, Integer> maxIncomeItem() {
+        int maxIncome = 0;
+        String maxItemName = "";
+        for (Expense expense : expenses) {
+            if (expense.isExpense) {
+                if (expense.cost() > maxIncome) {
+                    maxIncome = expense.cost();
+                    maxItemName = expense.itemName;
+                }
+            }
+        }
+        return Map.of(maxItemName, maxIncome);
+    }
+
     @Override
     public String toString() {
         return "Ежемесячный отчет за " +
-               month + "." + year +
-                "\n " + expenses;
+                month + "." + year +
+                "\n " + expenses +
+                "Самый прибыльный товар :" + maxIncomeItem();
     }
 
     static class Expense {

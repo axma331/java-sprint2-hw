@@ -3,7 +3,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 
 /**
@@ -70,8 +69,8 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitStr[1]))
             );
         }
-        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
-        System.out.println(m);
+//        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
+//        System.out.println(m);
         return report;
     }
 
@@ -87,8 +86,8 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitStr[2])
             ));
         }
-        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
-        System.out.println(m);
+//        Map<Integer, Map<Boolean, Integer>> m = Comparison.convertToMap(report);
+//        System.out.println(m);
         return report;
     }
 

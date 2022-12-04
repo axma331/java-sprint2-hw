@@ -24,7 +24,7 @@ public class Main {
                         break;
                     case 3:
                         System.out.println(3);
-//                        Comparison.convertToMap(yearlyReport);
+                        Comparison.comparison(yearlyReport, monthlyReport);
                         break;
                     case 4:
                         System.out.println(monthlyReport);
@@ -44,6 +44,8 @@ public class Main {
             System.err.println("Отсутствуют файлы соответствующие шаблону именования отчётов!");
         } catch (IOException e) {
             System.err.println("Невозможно прочитать файл с месячным отчётом!");
+        } catch (NullPointerException n) {
+            System.err.println("Отсутствуют данные для вывода!");
         }
 
     }

@@ -3,8 +3,29 @@ import java.util.List;
 import java.util.Map;
 
 class Comparison {
-    void comparison(List<YearlyReport> yearlyReports, List<YearlyReport> monthlyReports) {
+    static void comparison(List<Report> yearlyReports, List<Report> monthlyReports) {
+        System.out.println("y" + yearlyReports.size());
+        System.out.println("m" + monthlyReports.size());
 
+        int j = 0;
+        for (Report yearlyReport : yearlyReports) {
+            Map<Integer, Map<Boolean, Integer>> year = convertToMap((YearlyReport) yearlyReport);
+            for (Integer integer : year.keySet()) {
+                System.out.println(year.get(integer));
+                ++j;
+            }
+        }
+        System.out.println(j);
+
+        int i = 0;
+        for (Report monthlyReport : monthlyReports) {
+            Map<Integer, Map<Boolean, Integer>> month = convertToMap((MonthlyReport) monthlyReport);
+            for (Integer integer : month.keySet()) {
+                System.out.println(month.get(integer));
+                ++i;
+            }
+        }
+        System.out.println(i);
     }
 
 
