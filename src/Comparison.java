@@ -1,31 +1,51 @@
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 class Comparison {
     static void comparison(List<Report> yearlyReports, List<Report> monthlyReports) {
-        System.out.println("y" + yearlyReports.size());
-        System.out.println("m" + monthlyReports.size());
-
+        Map<Integer, Map<Boolean, Integer>> year = null;
+        Map<Integer, Map<Boolean, Integer>> month = null;
+//        System.out.println("y" + yearlyReports.size());
+//        System.out.println("m" + monthlyReports.size());
         int j = 0;
         for (Report yearlyReport : yearlyReports) {
-            Map<Integer, Map<Boolean, Integer>> year = convertToMap((YearlyReport) yearlyReport);
-            for (Integer integer : year.keySet()) {
-                System.out.println(year.get(integer));
-                ++j;
-            }
+            year = convertToMap((YearlyReport) yearlyReport);
+//            System.out.println("year.keySet: " + year.keySet());
+//            for (Integer integer : year.keySet()) {
+//                ++j;
+//                System.out.println(j + "y " + integer + " " + year.get(integer));
+//            }
         }
-        System.out.println(j);
+//        System.out.println(j);
 
         int i = 0;
         for (Report monthlyReport : monthlyReports) {
-            Map<Integer, Map<Boolean, Integer>> month = convertToMap((MonthlyReport) monthlyReport);
+            month = convertToMap((MonthlyReport) monthlyReport);
+//            System.out.println("month.keySet: " + month.keySet());
             for (Integer integer : month.keySet()) {
-                System.out.println(month.get(integer));
-                ++i;
+//                ++i;
+//                System.out.println(i + "m " + integer + " " + month.get(integer));
+//                System.out.println("------------------------");
+                Set<Boolean> booleans = year.get(integer).keySet();
+                for (Boolean isIncome : booleans) {
+                    System.out.println(year.get(integer).get(isIncome));
+                    System.out.println(month.get(integer).get(isIncome));
+                    if (!(year.get(integer).get(isIncome)).equals(month.get(integer).get(isIncome))) {
+                        System.out.println("Данные в годовом отчете по месяцу № " + integer
+                                + " не равны с данными из месячного отчета: "
+                                + year.get(integer).get(isIncome) + " != "
+                                + month.get(integer).get(isIncome) + "!"
+                        );
+                    }
+                }
+                //                System.out.println("------------------------");
             }
         }
-        System.out.println(i);
+//        System.out.println(i);
+//        System.out.println("year" + year);
+//        System.out.println("month" + month);
     }
 
 
