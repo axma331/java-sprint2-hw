@@ -15,9 +15,6 @@ class Comparison {
         Map<Integer, Map<Boolean, Integer>> year = null;
         Map<Integer, Map<Boolean, Integer>> month = null;
         for (YearlyReport yR : yearlyReports) {
-//            if (!year.containsKey(yR.year)) {
-//                year.put(yR.year, new HashMap<>());
-//            }
             year = convertToMap(yR);
         }
 
@@ -37,7 +34,6 @@ class Comparison {
             }
         }
     }
-
 
     static Map<Integer, Map<Boolean, Integer>> convertToMap(YearlyReport report) {
         Map<Integer, Map<Boolean, Integer>> bigMap = new HashMap<>();

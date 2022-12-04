@@ -124,6 +124,6 @@ class YearlyReport {
     public String toString() {
         return "Ежегодный отчет за " +
                 year + "\n " + expenses +
-                "Самый прибыльный товар :" + maxIncomeItem() + "\n";
+                "\nСамый прибыльный товар :" + maxIncomeItem() + "\n";
     }
 }
