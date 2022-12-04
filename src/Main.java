@@ -4,26 +4,23 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+        List<MonthlyReport> monthlyReport = null;
+        List<YearlyReport> yearlyReport = null;
 
-        ProcessingOfDataFiles resources = new ProcessingOfDataFiles();
+        Scanner scanner = new Scanner(System.in);
+        int userInput;
         try {
-            List<Report> monthlyReport = null;
-            List<Report> yearlyReport = null;
-
-            Scanner scanner = new Scanner(System.in);
-            int userInput;
             do {
-                printMenuAndReturnUserSolution();
+                printMenu();
                 userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
-                        monthlyReport = resources.readAndSaveContentFromFile(Const.MONTH);
+                        monthlyReport = ProcessingOfDataFiles.getMonthlyReportContents();
                         break;
                     case 2:
-                        yearlyReport = resources.readAndSaveContentFromFile(Const.YEAR);
+                        yearlyReport =  ProcessingOfDataFiles.getYearlyReportContents();
                         break;
                     case 3:
-                        System.out.println(3);
                         Comparison.comparison(yearlyReport, monthlyReport);
                         break;
                     case 4:
@@ -34,27 +31,22 @@ public class Main {
                         break;
                     case 0:
                         System.out.println("До новых встреч!");
-                        scanner.close();
                         break;
                     default:
                         System.out.println("Действие отсутствует в списке!");
                 }
             } while (userInput != 0);
-        } catch (IllegalArgumentException e) {
-            System.err.println("Отсутствуют файлы соответствующие шаблону именования отчётов!");
+        } catch (NoReportsException e) {
+            System.err.println(e.getMessage());
         } catch (IOException e) {
             System.err.println("Невозможно прочитать файл с месячным отчётом!");
         } catch (NullPointerException n) {
             System.err.println("Отсутствуют данные для вывода!");
         }
-
+        scanner.close();
     }
 
-    /*
-      Программа должна завершаться только при вводе оператором специальной последовательности символов.
-      Придумать такую последовательность вы можете сами.
-     */
-    public static void printMenuAndReturnUserSolution() {
+    static void printMenu() {
         System.out.println("Выберите действие:");
         System.out.println("1. Считать все месячные отчёты");
         System.out.println("2. Считать годовой отчёт");

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class MonthlyReport implements Report {
+public class MonthlyReport {
     List<Expense> expenses = new ArrayList<>();
     final int year;
     final int month;
@@ -12,7 +12,7 @@ public class MonthlyReport implements Report {
         this.month = month;
     }
 
-    @Override
+    
     public int minExpense() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -23,7 +23,7 @@ public class MonthlyReport implements Report {
         return min;
     }
 
-    @Override
+    
     public int minIncome() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -34,7 +34,7 @@ public class MonthlyReport implements Report {
         return min;
     }
 
-    @Override
+    
     public int maxExpense() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -45,7 +45,7 @@ public class MonthlyReport implements Report {
         return max;
     }
 
-    @Override
+    
     public int maxIncome() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -56,7 +56,7 @@ public class MonthlyReport implements Report {
         return max;
     }
 
-    @Override
+    
     public double avgExpense() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -68,7 +68,7 @@ public class MonthlyReport implements Report {
         return (double) avg / cnt;
     }
 
-    @Override
+    
     public double avgIncome() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -94,13 +94,6 @@ public class MonthlyReport implements Report {
         return Map.of(maxItemName, maxIncome);
     }
 
-    @Override
-    public String toString() {
-        return "Ежемесячный отчет за " +
-                month + "." + year +
-                "\n " + expenses +
-                "Самый прибыльный товар :" + maxIncomeItem();
-    }
 
     static class Expense {
         final String itemName;
@@ -127,13 +120,19 @@ public class MonthlyReport implements Report {
             return quantity * sumOfOne;
         }
 
-        @Override
+        
         public String toString() {
-            return itemName +
-                    "| " + quantity +
-                    "| " + sumOfOne +
-                    "| " + isExpense +
-                    "\n";
+            return itemName + " "
+                    + quantity + " "
+                    + sumOfOne + " "
+                    + isExpense +"\n";
         }
+    }
+
+    
+    public String toString() {
+        return "Ежемесячный отчет за "
+                + month + "." + year + "\n " + expenses +
+                "Самый прибыльный товар: " + maxIncomeItem() + "\n";
     }
 }

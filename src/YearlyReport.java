@@ -3,19 +3,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class YearlyReport implements Report {
+class YearlyReport {
     List<Expense> expenses = new ArrayList<>();
-    private final int year;
+    public final int year;
 
-    public YearlyReport(int year) {
+    YearlyReport(int year) {
         this.year = year;
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    @Override
+    
     public int minExpense() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -26,7 +22,7 @@ public class YearlyReport implements Report {
         return min;
     }
 
-    @Override
+    
     public int minIncome() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -37,7 +33,7 @@ public class YearlyReport implements Report {
         return min;
     }
 
-    @Override
+    
     public int maxExpense() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -48,7 +44,7 @@ public class YearlyReport implements Report {
         return max;
     }
 
-    @Override
+    
     public int maxIncome() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -59,7 +55,7 @@ public class YearlyReport implements Report {
         return max;
     }
 
-    @Override
+    
     public double avgExpense() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -71,7 +67,7 @@ public class YearlyReport implements Report {
         return (double) avg / cnt;
     }
 
-    @Override
+    
     public double avgIncome() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -83,12 +79,6 @@ public class YearlyReport implements Report {
         return (double) avg / cnt;
     }
 
-    @Override
-    public String toString() {
-        return "Ежегодный отчет за " +
-                year + "\n " + expenses +
-                "Самый прибыльный товар :" + maxIncomeItem();
-    }
 
     Map<Integer, Integer> maxIncomeItem() throws NullPointerException {
         int maxIncome = 0;
@@ -122,24 +112,18 @@ public class YearlyReport implements Report {
             this.isExpense = isExpense;
         }
 
-//        public int getMonth() {
-//            return month;
-//        }
-//
-//        public int getAmount() {
-//            return amount;
-//        }
-//
-//        public boolean isExpense() {
-//            return isExpense;
-//        }
-
-        @Override
+        
         public String toString() {
-            return  month +
-                    "| " + amount +
-                    "| " + isExpense +
-                    "\n";
+            return month + " "
+                    + amount + " "
+                    + isExpense + " \n";
         }
+    }
+
+    
+    public String toString() {
+        return "Ежегодный отчет за " +
+                year + "\n " + expenses +
+                "Самый прибыльный товар :" + maxIncomeItem() + "\n";
     }
 }
