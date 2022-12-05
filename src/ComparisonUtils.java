@@ -4,9 +4,9 @@ import java.util.Map;
 import java.util.Set;
 
 /**
- * Класс для сравнения годовых и месячных отчетов
+ * Класс-утилита для сравнения годовых и месячных отчетов
  */
-class Comparison {
+class ComparisonUtils {
     static void comparison(List<YearlyReport> yearlyReports, List<MonthlyReport> monthlyReports) {
         if (yearlyReports == null || monthlyReports == null) {
             System.out.println("Отсутствуют данные для сверки по одному или двум отчетам!");

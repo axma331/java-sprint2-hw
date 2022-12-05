@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 class YearlyReport {
     List<Expense> expenses = new ArrayList<>();
@@ -11,7 +8,7 @@ class YearlyReport {
         this.year = year;
     }
 
-    
+
     public int minExpense() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -22,7 +19,7 @@ class YearlyReport {
         return min;
     }
 
-    
+
     public int minIncome() {
         int min = 0;
         for (Expense expense : expenses) {
@@ -33,7 +30,7 @@ class YearlyReport {
         return min;
     }
 
-    
+
     public int maxExpense() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -44,7 +41,7 @@ class YearlyReport {
         return max;
     }
 
-    
+
     public int maxIncome() {
         int max = 0;
         for (Expense expense : expenses) {
@@ -55,7 +52,7 @@ class YearlyReport {
         return max;
     }
 
-    
+
     public double avgExpense() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -67,7 +64,7 @@ class YearlyReport {
         return (double) avg / cnt;
     }
 
-    
+
     public double avgIncome() {
         int avg = 0, cnt = 0;
         for (Expense expense : expenses) {
@@ -112,18 +109,29 @@ class YearlyReport {
             this.isExpense = isExpense;
         }
 
-        
+
         public String toString() {
             return month + " "
                     + amount + " "
-                    + isExpense + " \n";
+                    + " \n";
         }
     }
 
-    
+    //Для ревьюера: к сожалению я не понял как убрать внешние квадратные скобки,
+    //что в месячном, что в годовом отчете. Смог только во вложенном классе
     public String toString() {
         return "Ежегодный отчет за " +
-                year + "\n " + expenses +
-                "\nСамый прибыльный товар :" + maxIncomeItem() + "\n";
+                year + "\n "
+                + expenses.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "")
+                + "\nМаксимальные траты произведены в месяце №"
+                + maxIncomeItem().toString()
+                .replace("{", "")
+                .replace("}", "")
+                .replace("=", " = ")
+                + "\n";
     }
+
 }

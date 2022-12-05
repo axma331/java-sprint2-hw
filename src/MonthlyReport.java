@@ -125,14 +125,22 @@ public class MonthlyReport {
             return itemName + " "
                     + quantity + " "
                     + sumOfOne + " "
-                    + isExpense +"\n";
+                    + "\n";
         }
     }
 
     
     public String toString() {
         return "Ежемесячный отчет за "
-                + month + "." + year + "\n " + expenses +
-                "Самый прибыльный товар: " + maxIncomeItem() + "\n";
+                + month + "." + year + "\n "
+                + expenses.toString()
+                .replace("[", "")
+                .replace("]", "")
+                .replace(",", "")
+                + "Самый прибыльный товар: "
+                + maxIncomeItem().toString()
+                .replace("{", "")
+                .replace("}", "")
+                .replace("=", " = ") + "\n";
     }
 }

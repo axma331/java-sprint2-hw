@@ -15,13 +15,13 @@ public class Main {
                 userInput = scanner.nextInt();
                 switch (userInput) {
                     case 1:
-                        monthlyReport = ProcessingOfDataFiles.getMonthlyReportContents();
+                        monthlyReport = ProcessingOfDataFilesUtils.getMonthlyReportContents();
                         break;
                     case 2:
-                        yearlyReport =  ProcessingOfDataFiles.getYearlyReportContents();
+                        yearlyReport =  ProcessingOfDataFilesUtils.getYearlyReportContents();
                         break;
                     case 3:
-                        Comparison.comparison(yearlyReport, monthlyReport);
+                        ComparisonUtils.comparison(yearlyReport, monthlyReport);
                         break;
                     case 4:
                         System.out.println(monthlyReport);

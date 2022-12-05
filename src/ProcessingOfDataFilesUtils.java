@@ -5,13 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ProcessingOfDataFiles {
-
+public class ProcessingOfDataFilesUtils {
     /**
      * Получение, обработка и сохранение содержимого файлов отчета
      *
-     * @param time отчетный период
-     * @return сохраненный отчет за запрашиваемый период
+     * @return сохраненный годовой отчет
      * @throws IOException при невозможности считывания из файла
      */
     static public List<YearlyReport> getYearlyReportContents() throws IOException {
@@ -28,6 +26,12 @@ public class ProcessingOfDataFiles {
         return savedReports;
     }
 
+    /**
+     * Получение, обработка и сохранение содержимого файлов отчета
+     *
+     * @return сохраненный месячный отчет
+     * @throws IOException при невозможности считывания из файла
+     */
     static public List<MonthlyReport> getMonthlyReportContents() throws IOException {
         List<MonthlyReport> savedReports = new ArrayList<>();
         File[] filesWithReports = getFiles();
@@ -72,6 +76,7 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitContent[1]))
             );
         }
+        printResultM(report);
         return report;
     }
 
@@ -87,6 +92,7 @@ public class ProcessingOfDataFiles {
                     Boolean.parseBoolean(splitContent[2])
             ));
         }
+        printResultY(report);
         return report;
     }
 
@@ -108,6 +114,22 @@ public class ProcessingOfDataFiles {
                 && "y".equals(checkName[0])
                 && checkName[1].chars().allMatch(Character::isDigit) && checkName[1].length() == 4
                 && "csv".equals(checkName[2]));
+    }
+
+    private static void printResultY(YearlyReport report) {
+        System.out.print("Данные отчета(-ов) за ");
+        int check = 0;
+        for (YearlyReport.Expense expense : report.expenses) {
+            if (check != expense.month) {
+                System.out.print(expense.month + ", ");
+            }
+            check = expense.month;
+        }
+        System.out.println("\b\b месяц(-ы)" + report.year + " года записаны.");
+    }
+
+    private static void printResultM(MonthlyReport report) {
+        System.out.println("Данные отчета за " + report.month + " месяц записаны.");
     }
 }
 
